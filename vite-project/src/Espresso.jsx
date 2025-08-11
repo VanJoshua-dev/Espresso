@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import clsx from "clsx";
+
 import character from "./assets/character.png";
 import logo from "./assets/espressoCharacter.png";
 import jumpSoundFile from "./assets/jump.mp3";
@@ -15,7 +16,6 @@ import obs5 from "./assets/obs_5.png";
 export default function JumpGame() {
   const [characterBottom, setCharacterBottom] = useState(0);
   const [isJumping, setIsJumping] = useState(false);
-
   const [obstacles, setObstacles] = useState([]);
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(0);
@@ -26,7 +26,7 @@ export default function JumpGame() {
   const [obstacleSpeed, setObstacleSpeed] = useState(11);
   const [hasStarted, setHasStarted] = useState(false);
 
-  const baseGravity = 0.2; // 🔹 Base gravity (will scale)
+  const baseGravity = 0.2; 
   const jumpVelocity = 9;
   const groundLevel = 0;
   const maxJumpHeight = 250;
@@ -36,31 +36,29 @@ export default function JumpGame() {
   const gameOverSound = useRef(null);
 
   const obstacleImages = [obs1, obs2, obs3, obs4, obs5];
+
   const getRandomHeight = () => Math.floor(Math.random() * 60) + 70;
   const getRandomObs = () =>
     obstacleImages[Math.floor(Math.random() * obstacleImages.length)];
 
   const spawnObstacles = (offset = 0) => {
-    const numGroups = Math.floor(Math.random() * 3) + 1; // 1–3 groups
-    const obstacleGap = 60; // space between obstacles in the same group
+    const numGroups = Math.floor(Math.random() * 3) + 1;
+    const obstacleGap = 60;
     let newObstacles = [];
-    let currentX = 1100 + offset; // starting X for the first group
+    let currentX = 1100 + offset;
 
     for (let g = 0; g < numGroups; g++) {
-      const groupSize = Math.floor(Math.random() * 3) + 1; // 1–3 obstacles in this group
+      const groupSize = Math.floor(Math.random() * 3) + 1;
       const groupSpacing = 500;
-      // ^ random gap between groups (150–300 px)
 
-      // Spawn obstacles for this group
       for (let i = 0; i < groupSize; i++) {
         newObstacles.push({
-          left: currentX + i * obstacleGap, // inside group spacing
+          left: currentX + i * obstacleGap,
           height: getRandomHeight(),
           img: getRandomObs(),
         });
       }
 
-      // Move X position forward for the next group
       currentX += groupSpacing;
     }
 
@@ -72,7 +70,7 @@ export default function JumpGame() {
     setObstacles(spawnObstacles());
     setIsGameOver(false);
     setScore(0);
-    setObstacleSpeed(11); // 🔹 Reset to base speed
+    setObstacleSpeed(11);
   };
 
   const jump = () => {
@@ -88,7 +86,6 @@ export default function JumpGame() {
       let position = characterBottom;
 
       const animation = () => {
-        // 🔹 Gravity now scales with obstacleSpeed
         const gravity = baseGravity * (obstacleSpeed / 11);
 
         if (isHoldingJump.current && position < maxJumpHeight) {
@@ -127,15 +124,12 @@ export default function JumpGame() {
             if (obs.left + 60 < 50 && !obs.passed) {
               obs.passed = true;
               setScore((s) => s + 1);
-
-              // Increase speed slightly every point
               setObstacleSpeed((speed) => speed + 0.05);
             }
           });
 
           updated = updated.filter((obs) => obs.left > -60);
 
-          // Spawn new batch when the rightmost is far enough left
           const rightmost = Math.max(...updated.map((o) => o.left), 0);
           if (rightmost < 400) {
             updated = [...updated, ...spawnObstacles()];
@@ -148,6 +142,7 @@ export default function JumpGame() {
       return () => clearInterval(timer);
     }
   }, [isGameOver, obstacleSpeed, hasStarted]);
+
   useEffect(() => {
     const checkCollision = (obsLeft, obsHeight) => {
       return obsLeft < 80 && obsLeft > 20 && characterBottom < obsHeight + 50;
@@ -160,6 +155,7 @@ export default function JumpGame() {
     ) {
       gameOverSound.current?.play();
       setIsGameOver(true);
+
       if (score > highScore) {
         localStorage.setItem("highScore", score);
         setHighScore(score);
@@ -202,7 +198,7 @@ export default function JumpGame() {
   }, [isJumping, isGameOver, hasStarted]);
 
   return (
-    <div className="w-screen h-screen flex  justify-center items-center bg-[#CABCB2]">
+    <div className="w-screen h-screen flex justify-center items-center bg-[#CABCB2]">
       <div className="bg-[#c0b1a5] px-2 rounded-sm flex gap-2">
         <div
           className={clsx(
@@ -239,13 +235,12 @@ export default function JumpGame() {
           <div className="w-full absolute top-0 pt-3 flex justify-between items-center px-8">
             <div className="flex gap-2 justify-center items-center">
               <span className="text-[25px] font-bold text-[#B67237] flex flex-col justify-center items-center gap-2">
-                Highest Score:{" "}
+                Highest Score:
               </span>
-              <span className="text-[25px] font-bold text-[#B67237] flex  justify-center items-center gap-2">
+              <span className="text-[25px] font-bold text-[#B67237] flex justify-center items-center gap-2">
                 <img src={logo} className="w-7 h-7" alt="" /> {highScore}
               </span>
             </div>
-
             <span className="text-[25px] font-bold text-[#B67237] flex justify-center items-center gap-2">
               <img src={logo} className="w-7 h-7" alt="" /> {score}
             </span>
@@ -265,9 +260,9 @@ export default function JumpGame() {
               <span className="text-[25px] font-bold text-[#B67237] flex justify-center mt-2 items-center gap-2">
                 <img src={logo} className="w-7 h-7" alt="" /> {score}
               </span>
-              {/* <div className="text-lg mt-2">High Score: {highScore}</div> */}
             </div>
           )}
+
           {/* Start Screen */}
           {!hasStarted && (
             <div className="absolute left-0 w-full h-full flex flex-col justify-center items-center text-white z-10">
@@ -277,12 +272,7 @@ export default function JumpGame() {
             </div>
           )}
         </div>
-        {/* <div className="absolute left-2 top-50 py-2 rounded-sm bg-[#c0b1a5] px-2">
-          <h1 className="text-2xl font-bold text-[#B67237]">Highest Score</h1>
-          <span className="text-[25px] font-bold text-[#B67237] flex justify-center mt-1 items-center gap-2">
-            <img src={logo} className="w-7 h-7" alt="" /> {highScore}
-          </span>
-        </div> */}
+
         <div className="absolute left-145 bottom-5 blink">
           <span className="text-[#B67237] font-bold text-xl">
             Hold <strong>Space</strong> to jump higher
