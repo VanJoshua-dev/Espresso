@@ -26,7 +26,10 @@ export default function JumpGame() {
   const [obstacleSpeed, setObstacleSpeed] = useState(11);
   const [hasStarted, setHasStarted] = useState(false);
 
-  const baseGravity = 0.2; 
+  const lastMilestoneRef = useRef(0);
+  const maxSpeed = 20;
+
+  const baseGravity = 0.2;
   const jumpVelocity = 9;
   const groundLevel = 0;
   const maxJumpHeight = 250;
@@ -46,6 +49,7 @@ export default function JumpGame() {
     const obstacleGap = 60;
     let newObstacles = [];
     let currentX = 1100 + offset;
+    let groupIdCounter = Date.now(); // unique per spawn call
 
     for (let g = 0; g < numGroups; g++) {
       const groupSize = Math.floor(Math.random() * 3) + 1;
@@ -56,6 +60,8 @@ export default function JumpGame() {
           left: currentX + i * obstacleGap,
           height: getRandomHeight(),
           img: getRandomObs(),
+          groupId: groupIdCounter + g, // tag group
+          passed: false,
         });
       }
 
@@ -66,6 +72,7 @@ export default function JumpGame() {
   };
 
   const resetGame = () => {
+    // Handle reset game
     setCharacterBottom(groundLevel);
     setObstacles(spawnObstacles());
     setIsGameOver(false);
@@ -73,7 +80,21 @@ export default function JumpGame() {
     setObstacleSpeed(11);
   };
 
+  useEffect(() => {
+    // Handle obstacle speed every 20
+    if (
+      score > 0 &&
+      score % 20 === 0 &&
+      score !== lastMilestoneRef.current &&
+      obstacleSpeed < maxSpeed
+    ) {
+      setObstacleSpeed((prev) => Math.min(prev + 2, maxSpeed));
+      lastMilestoneRef.current = score;
+    }
+  }, [score, obstacleSpeed]);
+
   const jump = () => {
+    // handle character jump
     if (
       !isJumping &&
       !isGameOver &&
@@ -123,8 +144,16 @@ export default function JumpGame() {
           updated.forEach((obs) => {
             if (obs.left + 60 < 50 && !obs.passed) {
               obs.passed = true;
-              setScore((s) => s + 1);
-              setObstacleSpeed((speed) => speed + 0.05);
+
+              // Check if this is the LAST obstacle in its group to pass
+              const groupPassed = updated
+                .filter((o) => o.groupId === obs.groupId)
+                .every((o) => o.passed);
+
+              if (groupPassed) {
+                setScore((s) => s + 2); // +2 points per group
+                setObstacleSpeed((speed) => Math.min(speed + 0.05, maxSpeed));
+              }
             }
           });
 
@@ -203,7 +232,7 @@ export default function JumpGame() {
         <div
           className={clsx(
             "relative w-[1100px] h-[600px] overflow-hidden rounded-sm mx-auto",
-            "bg-[#FCEBDE]"
+            "bg-[#451f17]"
           )}
         >
           <audio ref={jumpSound} src={jumpSoundFile} preload="auto" />
@@ -266,7 +295,10 @@ export default function JumpGame() {
           {/* Start Screen */}
           {!hasStarted && (
             <div className="absolute left-0 w-full h-full flex flex-col justify-center items-center text-white z-10">
-              <p className="text-3xl text-[#B67237] blink">
+              <p className="text-4xl font-bold text-[#B67237] mb-4 blink">
+                Espresso Escape
+              </p>
+              <p className="text-2xl text-[#B67237] blink">
                 Press <strong>Enter</strong> to Start
               </p>
             </div>
