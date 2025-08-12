@@ -261,7 +261,7 @@ export default function JumpGame() {
           {/* Score */}
           <div className="w-full absolute top-0 pt-3 flex justify-between items-center px-8">
             <div className="flex gap-2 justify-center items-center">
-              <span className="text-[25px] font-bold text-[#B67237] flex flex-col justify-center items-center gap-2 hel-bold">
+              <span className="text-xl font-bold text-[#B67237] flex flex-col justify-center items-center gap-2 hel-bold">
                 Highest Score:
               </span>
               <span className="text-[25px] font-bold text-[#B67237] flex justify-center items-center gap-2 hel-bold">
