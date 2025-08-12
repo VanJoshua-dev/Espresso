@@ -64,10 +64,8 @@ export default function JumpGame() {
           passed: false,
         });
       }
-
       currentX += groupSpacing;
     }
-
     return newObstacles;
   };
 
@@ -228,7 +226,7 @@ export default function JumpGame() {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center bg-[#CABCB2]">
-      <div className="bg-[#c0b1a5] px-2 rounded-sm flex gap-2">
+      <div className="bg-[#c0b1a5] px-2 rounded-sm flex gap-2 relative">
         <div
           className={clsx(
             "relative w-[1100px] h-[600px] overflow-hidden rounded-sm mx-auto",
@@ -263,30 +261,30 @@ export default function JumpGame() {
           {/* Score */}
           <div className="w-full absolute top-0 pt-3 flex justify-between items-center px-8">
             <div className="flex gap-2 justify-center items-center">
-              <span className="text-[25px] font-bold text-[#B67237] flex flex-col justify-center items-center gap-2">
+              <span className="text-[25px] font-bold text-[#B67237] flex flex-col justify-center items-center gap-2 hel-bold">
                 Highest Score:
               </span>
-              <span className="text-[25px] font-bold text-[#B67237] flex justify-center items-center gap-2">
-                <img src={logo} className="w-7 h-7" alt="" /> {highScore}
+              <span className="text-[25px] font-bold text-[#B67237] flex justify-center items-center gap-2 hel-bold">
+                 {highScore}
               </span>
             </div>
-            <span className="text-[25px] font-bold text-[#B67237] flex justify-center items-center gap-2">
+            <span className="text-[25px] font-bold text-[#B67237] flex justify-center items-center gap-2 helvetica">
               <img src={logo} className="w-7 h-7" alt="" /> {score}
             </span>
           </div>
 
           {/* Game Over */}
           {isGameOver && (
-            <div className="absolute top-50 w-full text-center text-4xl font-bold text-[#B67237]">
+            <div className="w-full h-full text-center flex flex-col justify-center items-center text-4xl font-bold text-[#B67237] helvetica">
               GAME OVER
               <br />
-              <span className="text-xl">Press Enter to Retry</span>
+              <span className="text-2xl helvetica-normal blink">Press [ Enter ] to Retry</span>
               {isNewHighScore && (
-                <div className="text-[20px] font-bold text-green-500 mt-2">
+                <div className="text-2xl font-bold text-green-500 mt-2 helvetica">
                   🎉 New Highest Score! 🎉
                 </div>
               )}
-              <span className="text-[25px] font-bold text-[#B67237] flex justify-center mt-2 items-center gap-2">
+              <span className="text-[25px] font-bold text-[#B67237] flex justify-center mt-2 items-center gap-2 helvetica">
                 <img src={logo} className="w-7 h-7" alt="" /> {score}
               </span>
             </div>
@@ -295,19 +293,19 @@ export default function JumpGame() {
           {/* Start Screen */}
           {!hasStarted && (
             <div className="absolute left-0 w-full h-full flex flex-col justify-center items-center text-white z-10">
-              <p className="text-4xl font-bold text-[#B67237] mb-4 blink">
+              <p className="text-4xl font-bold text-[#B67237] mb-4 blink helvetica">
                 Espresso Escape
               </p>
-              <p className="text-2xl text-[#B67237] blink">
-                Press <strong>Enter</strong> to Start
+              <p className="text-2xl text-[#B67237] blink helvetica-normal">
+                Press <strong>[ Enter ]</strong> to Start
               </p>
             </div>
           )}
         </div>
 
-        <div className="absolute left-145 bottom-5 blink">
-          <span className="text-[#B67237] font-bold text-xl">
-            Hold <strong>Space</strong> to jump higher
+        <div className="absolute left-100 bottom-[-30px] blink">
+          <span className="text-[#B67237] text-xl helvetica-normal">
+            Hold <strong className="">[ Space ]</strong> to jump higher
           </span>
         </div>
       </div>

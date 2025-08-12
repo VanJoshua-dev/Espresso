@@ -20,3 +20,28 @@ body{
     opacity: 0;
   }
 }
+
+@font-face {
+  font-family: 'MyFont';
+  src: url('./assets/fonts/FreeSansBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyFontNormal';
+  src: url('./assets/fonts/FreeSans.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+.helvetica{
+  font-family: "MyFont";
+}
+
+
+.helvetica-normal{
+  font-family: "MyFontNormal";
+}
