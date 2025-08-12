@@ -259,32 +259,32 @@ export default function JumpGame() {
           ))}
 
           {/* Score */}
-          <div className="w-full absolute top-0 pt-3 flex justify-between items-center px-8">
-            <div className="flex gap-2 justify-center items-center">
-              <span className="text-xl font-bold text-[#B67237] flex flex-col justify-center items-center gap-2 hel-bold">
+          <div className="w-full absolute top-0 py-3 flex justify-between items-center px-3">
+            <div className="flex gap-2 justify-center items-center px-2 py-1 border-3 border-[#DE9E67] rounded-sm">
+              <span className="text-lg   text-[#B67237] flex flex-col justify-center items-center gap-2 helvetica">
                 Highest Score:
               </span>
-              <span className="text-[25px] font-bold text-[#B67237] flex justify-center items-center gap-2 hel-bold">
+              <span className="text-lg font-bold text-white flex justify-center items-center gap-2 hel-bold">
                  {highScore}
               </span>
             </div>
-            <span className="text-[25px] font-bold text-[#B67237] flex justify-center items-center gap-2 helvetica">
+            <span className="text-lg font-bold px-2 py-1 border-3 rounded-sm border-[#DE9E67] text-white flex justify-center items-center gap-2 helvetica">
               <img src={logo} className="w-7 h-7" alt="" /> {score}
             </span>
           </div>
 
           {/* Game Over */}
           {isGameOver && (
-            <div className="w-full h-full text-center flex flex-col justify-center items-center text-4xl font-bold text-[#B67237] helvetica">
-              GAME OVER
+            <div className="w-full h-full text-center flex flex-col mt-5 justify-center items-center ">
+              <span className="text-4xl font-bold text-[#B67237] helvetica">GAME OVER</span>
               <br />
-              <span className="text-2xl helvetica-normal blink">Press [ Enter ] to Retry</span>
+              <span className="text-lg helvetica-normal text-[#B67237] blink">Press <strong>[ Enter ] </strong> to Retry</span>
               {isNewHighScore && (
-                <div className="text-2xl font-bold text-green-500 mt-2 helvetica">
+                <div className="text-lg  text-white mt-2 helvetica-normal">
                   🎉 New Highest Score! 🎉
                 </div>
               )}
-              <span className="text-[25px] font-bold text-[#B67237] flex justify-center mt-2 items-center gap-2 helvetica">
+              <span className="text-[25px] font-bold text-white flex justify-center mt-2 items-center gap-2 helvetica">
                 <img src={logo} className="w-7 h-7" alt="" /> {score}
               </span>
             </div>
@@ -293,10 +293,10 @@ export default function JumpGame() {
           {/* Start Screen */}
           {!hasStarted && (
             <div className="absolute left-0 w-full h-full flex flex-col justify-center items-center text-white z-10">
-              <p className="text-4xl font-bold text-[#B67237] mb-4 blink helvetica">
+              <p className="text-4xl font-bold text-[#B67237] mb-4 blink helvetica title">
                 Espresso Escape
               </p>
-              <p className="text-2xl text-[#B67237] blink helvetica-normal">
+              <p className="text-lg text-[#B67237] blink helvetica-normal">
                 Press <strong>[ Enter ]</strong> to Start
               </p>
             </div>

@@ -45,3 +45,7 @@ body{
 .helvetica-normal{
   font-family: "MyFontNormal";
 }
+
+.title{
+  -webkit-text-stroke: 1px white;
+}
