@@ -303,7 +303,7 @@ export default function JumpGame() {
           )}
         </div>
 
-        <div className="absolute left-100 bottom-[-30px] blink">
+        <div className="absolute w-full bottom-[-30px] text-center  blink">
           <span className="text-[#B67237] text-xl helvetica-normal">
             Hold <strong className="">[ Space ]</strong> to jump higher
           </span>
