@@ -13,6 +13,9 @@ import obs3 from "./assets/obs_3.png";
 import obs4 from "./assets/obs_4.png";
 import obs5 from "./assets/obs_5.png";
 
+//logo
+import EspressoLogo from "./assets/Logo.png"
+
 export default function JumpGame() {
   const [characterBottom, setCharacterBottom] = useState(0);
   const [isJumping, setIsJumping] = useState(false);
@@ -259,26 +262,35 @@ export default function JumpGame() {
           ))}
 
           {/* Score */}
-          <div className="w-full absolute top-0 py-3 flex justify-between items-center px-3">
-            <div className="flex gap-2 justify-center items-center px-2 py-1 border-3 border-[#DE9E67] rounded-sm">
-              <span className="text-lg   text-[#B67237] flex flex-col justify-center items-center gap-2 helvetica">
-                Highest Score:
-              </span>
-              <span className="text-lg font-bold text-white flex justify-center items-center gap-2 hel-bold">
-                 {highScore}
+          <div className="w-full absolute top-0 py-3 flex justify-between px-3">
+            <div>
+              <div className="flex gap-2 justify-center items-center px-2 py-1 border-3 border-[#DE9E67] rounded-sm">
+                <span className="text-lg   text-[#B67237] flex flex-col justify-center items-center gap-2 helvetica">
+                  Highest Score:
+                </span>
+                <span className="text-lg font-bold text-white flex justify-center items-center gap-2 hel-bold">
+                  {highScore}
+                </span>
+              </div>
+              <span className="text-lg font-bold px-2 py-1 border-3 rounded-sm border-[#DE9E67] mt-2 w-20 text-white flex justify-center items-center gap-2 helvetica">
+                <img src={logo} className="w-7 h-7" alt="" /> {score}
               </span>
             </div>
-            <span className="text-lg font-bold px-2 py-1 border-3 rounded-sm border-[#DE9E67] text-white flex justify-center items-center gap-2 helvetica">
-              <img src={logo} className="w-7 h-7" alt="" /> {score}
-            </span>
+            <div>
+              <img src={EspressoLogo} alt="Espresso Logo"  className="w-40"/>
+            </div>
           </div>
 
           {/* Game Over */}
           {isGameOver && (
             <div className="w-full h-full text-center flex flex-col mt-5 justify-center items-center ">
-              <span className="text-4xl font-bold text-[#B67237] helvetica">GAME OVER</span>
+              <span className="text-4xl font-bold text-[#B67237] helvetica">
+                GAME OVER
+              </span>
               <br />
-              <span className="text-lg helvetica-normal text-[#B67237] blink">Press <strong>[ Enter ] </strong> to Retry</span>
+              <span className="text-lg helvetica-normal text-[#B67237] blink">
+                Press <strong>[ Enter ] </strong> to Retry
+              </span>
               {isNewHighScore && (
                 <div className="text-lg  text-white mt-2 helvetica-normal">
                   🎉 New Highest Score! 🎉
